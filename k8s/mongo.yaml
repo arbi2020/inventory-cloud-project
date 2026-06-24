@@ -1,11 +1,4 @@
-# ===========================================================================
-# Étape 4 - MongoDB sur Kubernetes : 3 objets dans un seul fichier.
-#   PersistentVolumeClaim : demande d'un espace de stockage persistant
-#   Deployment            : gère le conteneur Mongo (le maintient en vie)
-#   Service               : nom réseau stable "mongo" pour joindre la base
-# ===========================================================================
 
-# --- 1) Stockage persistant (équivalent du "volume" de Docker Compose) ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -17,13 +10,13 @@ spec:
     requests:
       storage: 1Gi
 ---
-# --- 2) Deployment : décrit l'état souhaité du conteneur Mongo ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo
 spec:
-  replicas: 1                 # une base = un seul exemplaire (stateful)
+  replicas: 1                
   selector:
     matchLabels:
       app: mongo
@@ -45,17 +38,15 @@ spec:
           persistentVolumeClaim:
             claimName: mongo-pvc
 ---
-# --- 3) Service : adresse réseau stable. Son NOM "mongo" devient le nom DNS ---
-#     >>> C'est pour ça que MONGO_URI=mongodb://mongo:27017/ continue de marcher,
-#         exactement comme avec Docker Compose.
+
 apiVersion: v1
 kind: Service
 metadata:
   name: mongo
 spec:
   selector:
-    app: mongo               # ce Service route vers les pods étiquetés app=mongo
+    app: mongo              
   ports:
     - port: 27017
       targetPort: 27017
-  # Pas de type : ClusterIP par défaut = joignable seulement DANS le cluster
+

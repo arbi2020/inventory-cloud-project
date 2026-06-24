@@ -30,6 +30,8 @@ In cloud deployment:
   - OR MongoDB Atlas (recommended)
 - Service exposes application via LoadBalancer
 
+![Poject Diagram](images/project_architecture.png)
+
 ---
 
 # 📂 Project Structure
@@ -110,7 +112,6 @@ Look for:
 
 EXTERNAL-IP (LoadBalancer)
 
-Example:
 http://40.233.123.166/
 
 ---
@@ -167,3 +168,8 @@ MONGO_URI=mongodb+srv://<user>:<password>@cluster0.mongodb.net/catalogue
 # 📜 License
 
 Educational project – Cloud & DevOps training
+
+
+# 🔗 GitHub Repository
+
+https://github.com/arbi2020/inventory-cloud-project
